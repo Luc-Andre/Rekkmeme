@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="nes.css">
+      <title>8 Bit Rekkles Meme Maker</title>
+      <style>
+        @font-face {
+            font-family: 'pixels';
+            src: url('Symtext.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          font-family: pixels;
+          font-size: 150%;
+          background-image: url("rekkles bg.png");
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+        }
+
+        .content {
+            z-index: 200;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .foot {
+          position: fixed;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          color: #f1f1f1;
+          width: 100%;
+          padding: 0px;
+          margin-bottom:-15px;
+          text-align:right;
+          font-size:50%;
+        }
+
+        input{
+           text-align: center;
+           font-size: 100%;
+        }
+
+        input:focus{
+            outline: none;
+        }
+
+        #txt{
+           width : 45vw;
+           cursor: url(cursor2.png), pointer;
+        }
+
+        #secret{
+           visibility:hidden;
+        }
+
+        #btn{
+          margin-left:-15px;
+        }
+
+        #fresses{
+          text-align:center;
+        }
+
+        label{
+          padding-left:15px;
+          text-align:left;
+          cursor: url(cursor2.png) 14 0, pointer;
+        }
+
+        #muse{
+          cursor: url(cursor2.png) 14 0, pointer;
+        }
+
+      </style>
+    </head>
+    <body>
+
+      <div class="content">
+        <form action="8bitrekkles.html" id="frm">
+          <div id="fresses">
+          <input type="text" class="nes-input" id="txt" placeholder="meme here" autofocus autocomplete="off">
+          <input type="button" value="Go!" id="btn" class="nes-btn is-primary">
+      </div>
+
+      <label>
+        <input type="checkbox" id="muse" checked name="msc"/>
+        <span>Music</span>
+      </label>
+
+      <input type="text" id="secret" autocomplete="off" name="txt">
+
+      </form> 
+      </div>
+
+      <div class="foot">
+        <p>Animation/Song property of Riot/LEC</p>
+      </div>
+
+      <script>
+        document.getElementById('btn').onclick = function(e){
+          let blabla2 = document.getElementById('txt').value;
+          let blabla = encodeURIComponent(blabla2);
+          document.getElementById("secret").value = blabla;
+          document.getElementById("frm").submit();
+        }
+      </script>
+    </body>
+  </html>

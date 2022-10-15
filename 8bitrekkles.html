@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="nes.css">
+      <title>😜</title>
+      <style>
+        @font-face {
+            font-family: 'pixels';
+            src: url('Symtext.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .texta{
+           font-size: 12vw;
+           white-space: nowrap ;
+        }
+
+        #title{
+           text-align:center;
+           text-shadow: -6px 0 black, 0 6px black, 6px 0 black, 0 -6px black;
+           position: absolute;
+           bottom:0;
+        }
+
+        @media screen and (max-width: 900px) {
+          .texta {
+              font-size: 18vw;
+              white-space: nowrap ;
+          }
+
+          #title{
+             text-align:center;
+             text-shadow: -6px 0 black, 0 6px black, 6px 0 black, 0 -6px black;
+             position: absolute;
+             bottom:10%!important;
+          }
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          font-family: pixels;
+          font-size: 150%;
+          cursor: url(cursor.png), auto;
+          background-color: #cc1f00;
+        }
+
+        #myVideo {
+          z-index: -100;
+          position: fixed;
+          right: 0;
+          bottom: 0;
+          min-width: 100%; 
+          min-height: 100%;
+          object-fit: cover;
+        }
+
+        .content {
+            z-index: 200;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hidden {
+           display:none;
+        }
+
+        .invisible {
+           visibility:hidden;
+        }
+
+        #titletop{
+           text-align:center;
+           text-shadow: -6px 0 black, 0 6px black, 6px 0 black, 0 -6px black;
+           position: absolute;
+           top:0;
+        }
+
+        #title{
+           text-align:center;
+           text-shadow: -6px 0 black, 0 6px black, 6px 0 black, 0 -6px black;
+           position: absolute;
+           bottom:0;
+        }
+
+        .texto{
+           font-size: 10vw;
+        }
+
+
+        @keyframes Cue-In {
+          0% {
+            opacity: 0;
+            transform: scale(0.1) rotateX(45deg)
+          }
+          
+          100% {
+            transform: scale(1) rotateX(0)
+          }
+        }
+
+        .cue-in {
+          animation: Cue-In 2s ease-in-out;
+        }
+
+      </style>
+    </head>
+    <body>
+      <video muted loop id="myVideo" class="invisible">
+        <source src="rekkles 8 bit.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+      </video>
+
+
+      <audio autoplay loop id="son">
+        <source src="rekkles.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+      </audio>
+
+      <div class="content" id="ctt">
+        <input type="button" value="Trust me" id="btn" class="nes-btn is-primary hidden">
+        <h1 id="titletop" class="hidden"></h1>
+        <h1 id="title" class="hidden"></h1>
+      </div>
+
+      <script type='text/javascript'>
+
+        function playAll() {
+          document.getElementById('son').play();
+          playNoAudio();
+          document.getElementById('btn').remove();
+        }
+
+        function playNoAudio() {
+          document.getElementById('myVideo').play();
+          document.getElementById('myVideo').classList.add('cue-in');
+          document.getElementById('myVideo').classList.remove('invisible');
+          document.getElementById("title").classList.add('cue-in');
+          document.getElementById("title").classList.remove('hidden');
+          document.getElementById("titletop").classList.add('cue-in');
+          document.getElementById("titletop").classList.remove('hidden');
+        }
+
+        function getUrlVars() {
+            let vars = {};
+            let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+
+        function getUrlParam(parameter, defaultvalue){
+            let urlparameter = defaultvalue;
+            if(window.location.href.indexOf(parameter) > -1){
+                urlparameter = getUrlVars()[parameter];
+                }
+            return urlparameter;
+        }
+
+        let msic = getUrlParam('msc','off');
+
+        if (msic =='off'){
+          document.getElementById('son').remove();
+          playNoAudio();
+        }
+
+        let myAudio = document.getElementById('son');
+
+        if (myAudio) {
+          setTimeout(function(){
+            if (!myAudio.paused || myAudio.currentTime > 0) {
+              playAll();
+            } else {
+              myAudio.pause();
+              document.getElementById("btn").classList.remove('hidden');
+            }
+          }, 50);
+        }
+
+        let mytext = getUrlParam('txt','');
+
+        let queryString = decodeURIComponent(mytext);
+        let tx = decodeURIComponent(queryString);
+        let n = tx.length;
+        if (n > 20) {
+
+           let middle = Math.floor(tx.length / 2);
+           let before = tx.lastIndexOf(' ', middle);
+           let after = tx.indexOf(' ', middle +1);
+
+           if (before == -1 || (after != -1 && middle - before >= after - middle)) {
+                middle = after;
+            } else {
+                middle = before;
+            }
+
+           let s1 = tx.substr(0, middle);
+           let s2 = tx.substr(middle +1);
+
+          document.getElementById("title").classList.add('texto');
+          document.getElementById("titletop").innerHTML = s1;
+          document.getElementById("titletop").classList.add('texto');
+          document.getElementById("title").innerHTML = s2;
+        } else if (n > 8) {
+          document.getElementById("title").innerHTML = tx;
+          document.getElementById("title").classList.add('texto');
+        } else {
+          document.getElementById("title").innerHTML = tx;
+          document.getElementById("title").classList.add('texta');
+        }
+
+        function resizeVideo(){
+          let h = window.innerHeight -30;
+          let w = window.innerWidth -20;
+          document.getElementById('myVideo').style.height = h+'px';
+          document.getElementById('myVideo').style.width = w+'px';
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+          resizeVideo();
+        });
+
+        window.addEventListener("resize", () => {
+          resizeVideo();
+        }, true);
+
+        document.getElementById('btn').onclick = function(e){
+          playAll();
+        }
+
+      </script>
+    </body>
+  </html>
